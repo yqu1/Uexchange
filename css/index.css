@@ -1,30 +1,31 @@
 body{
+    background-image: url("http://finance.nd.edu/assets/88232/original/finance.jpg");
 
     padding:50px;
 }
 
-#login-dp{
+#login-dp, #signup-dp{
     min-width: 250px;
     padding: 14px 14px 0;
     overflow:hidden;
     background-color:rgba(255,255,255,.8);
 }
-#login-dp .help-block{
+#login-dp, #signup-dp .help-block{
     font-size:12px    
 }
-#login-dp .bottom{
+#login-dp, #signup-dp .bottom{
     background-color:rgba(255,255,255,.8);
     border-top:1px solid #ddd;
     clear:both;
     padding:14px;
 }
-#login-dp .social-buttons{
+#login-dp, #signup-dp .social-buttons{
     margin:12px 0    
 }
-#login-dp .social-buttons a{
+#login-dp, #signup-dp .social-buttons a{
     width: 49%;
 }
-#login-dp .form-group {
+#login-dp, #signup-dp .form-group {
     margin-bottom: 10px;
 }
 .btn-fb{
@@ -44,11 +45,11 @@ body{
     background-color:#59b5fa;
 }
 @media(max-width:768px){
-    #login-dp{
+    #login-dp, #signup-dp{
         background-color: inherit;
         color: #fff;
     }
-    #login-dp .bottom{
+    #login-dp, #signup-dp .bottom{
         background-color: inherit;
         border-top:0 none;
     }
