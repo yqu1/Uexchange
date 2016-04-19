@@ -6,13 +6,13 @@
 <!-- create your css stylesheet called feednd.css -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+	<link href="css/profile.css" type="text/css" rel="stylesheet" />
 <!-- the following is optional: uncomment if you want to use jQuery UI -->
 <!-- <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" /> -->
 </head>
 
 <body>
-
-		<div class="container" style="padding-top: 60px;">
+	<div class="container" style="padding-top: 60px;">
 	  <h1 class="page-header">Edit Profile</h1>
 	  <div class="row">
 	    <!-- left column -->
@@ -99,9 +99,43 @@
 	            <input class="btn btn-default" value="Cancel" type="reset">
 	          </div>
 	        </div>
-	      </form>
+	      <!-- </form> -->
 	    </div>
-	  </div>
+		<div class="container" >
+			<h1 class="page-header">Current Listings</h1>
+
+			<div id="user_listings">
+				<h3 id="header">No Current Listings</h3>
+				<ul id="items"></ul>
+			</div>
+
+			<input class="btn btn-primary" id="add-listing-button" value="Add Listing" type="button">
+
+
+
+			<div id="add-listing-form">
+				<label >Item Name:</label>
+					<input id="listing_name" class="form-control" placeholder="Item Name" type="text" required>
+
+				<label >Price:</label>
+
+					<input id="listing_price" class="form-control" placeholder="Price" type="number" required>
+
+
+				<label >Description:</label>
+
+					<input id="listing_description" class="form-control" placeholder="Description" type="text" required>
+
+				<label >Picture:</label>
+					<input id="listing_picture" class="form-control" placeholder="Picture" type="text" required>
+
+				<button class="btn btn-primary" type="submit" id="submit-listing-button">Submit Listing</button>
+			</div>
+
+
+
+
+		</div>
 	</div>
 
 	<!-- do not remove these: -->
@@ -110,6 +144,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 <script src="https://cdn.firebase.com/js/client/2.4.0/firebase.js"></script>
 <script src="https://sdk.amazonaws.com/js/aws-sdk-2.2.39.min.js"></script>
+<script src="js/profile.js"></script>
 
  <!--script src="accordion-slide.js"></script-->
 <!-- the following is optional: uncomment if you want to use jQuery UI -->

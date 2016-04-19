@@ -3,7 +3,7 @@
 function auth(fbname) {
     var firebase = new Firebase("https://"+ fbname + ".firebaseio.com");
     this.firebase = firebase;
-    var usersRef = this.firebase.child('users');
+    var usersRef = this.firebase.child('project_users');
     this.usersRef = usersRef;
     var uid;
     var linksRef = this.firebase.child('livelinks');
@@ -77,7 +77,7 @@ function auth(fbname) {
 
                 usersRef.child(userData.uid).set({
                     alias : alias,
-                    email : email,
+                    email : email
                 }, function(error) {
                     if (error) {
                         instance.onError(error);
@@ -115,7 +115,7 @@ function auth(fbname) {
 
 
 $(function() {
-	var ll = new auth("resplendent-fire-5646");
+	var ll = new auth("incandescent-inferno-9744");
 
 	    var $loginButton = $('#login-button'),
         $signupButton = $('#signup-button'),
@@ -125,7 +125,7 @@ $(function() {
         $profile = $('#profile'),
         $alerts;
 
-        $logoutButton.hide()
+        $logoutButton.hide();
         $profile.hide();
 
 
@@ -136,7 +136,7 @@ $(function() {
         	$signupForm.hide();
         	$logoutButton.show();
         	$profile.show();
-        }
+        };
 
         ll.onLogout = function() {
         	console.log("in onLogout");
@@ -144,7 +144,7 @@ $(function() {
         	$signupForm.show();
         	$logoutButton.hide();
         	$profile.hide();
-        }
+        };
 
         ll.onLoginFailure = function() {
 	        console.log("in onLoginFailure");
@@ -168,7 +168,7 @@ $(function() {
     		e.preventDefault();
        	 	e.stopPropagation();
        	 	ll.login($('#login-email').val(), $('#login-password').val());
-    	})
+    	});
 
     	$signupButton.on('click', function(e) {
     		e.preventDefault();
@@ -176,7 +176,7 @@ $(function() {
         	ll.signup($('#signup-email').val(),
             $('#signup-password').val(),$('#signup-password-confirm').val(),
             $('#signup-alias').val());
-    	})
+    	});
 
     	function showAlert(message, type) {
 	        var $alert = (
@@ -207,9 +207,9 @@ $(function() {
    	 	// start firebase auth listener only after all callbacks are in place
     	ll.start();
 
-    	window.onunload = function() {
-        ll.logout();
-    }
+    	//window.onunload = function() {
+        //ll.logout();
+    //}
 
 
-})
+});
