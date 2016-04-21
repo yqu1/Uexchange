@@ -1,49 +1,90 @@
 "use strict";
 
-function auth(fbname) {
-    var firebase = new Firebase("https://" + fbname + ".firebaseio.com");
-    this.firebase = firebase;
-    var usersRef = this.firebase.child('project_users');
-    this.usersRef = usersRef;
-    var uid;
-    var linksRef = this.firebase.child('livelinks');
-    this.linksRef = linksRef;
-    var listingsRef = this.firebase.child('project_listings');
-    this.listingsRef = listingsRef;
-    var instance = this;
-
-    //overridable functions
-    this.onLogin = function (user) {
-    };
-    this.onLoginFailure = function () {
-    };
-    this.onLogout = function () {
-    };
-    this.onError = function (error) {
-    };
-
-    this.start = function() {
-        this.firebase.onAuth(function (authResponse) {
-            if (authResponse) {
-                console.log("user is logged in");
-                usersRef.child(authResponse.uid).once('value', function(snapshot) {
-                    instance.user = snapshot.val();
-                    instance.onLogin(instance.user);
-                });
-            } else {
-                console.log("user is logged out");
-                instance.onLogout();
-            }
-        });
-    };
-
-    this.uid = function () {
-        return uid;
-    };
-}
-
 $(function() {
-    var ll = new auth("incandescent-inferno-9744");
+    var ref = new Firebase("https://resplendent-fire-5646.firebaseio.com/");
+    var authData = ref.getAuth();
+    var username = $('#username');
+    var email = $('#email');
+    var phone = $('#phone')
+    var uid = authData.uid;
+    var $save = $('#save');
+    var $cancel = $('#cancel');
+
+
+    ref.on('value', function(snap) {
+        if(snap.val()["project_users"][uid]["img"] != null) {
+            username.val(snap.val()["project_users"][uid]["alias"]);
+            email.val(snap.val()["project_users"][uid]["email"]);
+            phone.val(snap.val()["project_users"][uid]["phone"]);
+            $("#profile-img").attr("src", snap.val()["project_users"][uid]["img"])
+
+        }
+        else {
+            username.val(snap.val()["project_users"][uid]["alias"]);
+            email.val(snap.val()["project_users"][uid]["email"]);
+            phone.val(snap.val()["project_users"][uid]["phone"])
+        }
+    })
+
+
+    $cancel.on('click', function(e) {
+       ref.on('value', function(snap) {
+        username.val(snap.val()["project_users"][uid]["alias"]);
+            email.val(snap.val()["project_users"][uid]["email"]);
+            phone.val(snap.val()["project_users"][uid]["phone"]);
+       })
+         $("#file-field").val("");
+    })
+
+
+    $save.on('click', function(e) {
+         var credentials = {accessKeyId
+                  : "AKIAIZ522LL7ETF26ZHQ", secretAccessKey: "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"};
+                AWS.config.credentials = new AWS.Credentials("AKIAIZ522LL7ETF26ZHQ", "5gz6OkwfYYq70ARO6pLxfoay6iCXkccXQv1uqy3A");
+                AWS.config.region = "us-east-1";
+                var bucket = new AWS.S3({params: {Bucket: "yqu1"}});
+
+        var file = $("#file-field").prop("files")[0];
+
+        if(file) {
+            var prop = {
+                        Key: file.name,
+                       ContentType: file.type,
+                        Body: file,
+                         ACL: "public-read"
+                    };
+
+            console.log(prop)
+
+            bucket.upload(prop, function(err, data) {
+                var firebase_url = "https://resplendent-fire-5646.firebaseio.com/project_users/" + uid;
+                var Ref = new Firebase(firebase_url);
+                var info = {
+                    'email': email.val(),
+                    'alias': username.val(),
+                    'phone': phone.val(),
+                    'img': data.Location
+                }
+                Ref.update(info);
+                $("#profile-img").attr("src", data.Location)
+            })
+        }
+
+        else {
+            var firebase_url = "https://resplendent-fire-5646.firebaseio.com/project_users/" + uid;
+            var Ref = new Firebase(firebase_url);
+                var info = {
+                    'email': email.val(),
+                    'alias': username.val(),
+                    'phone': phone.val(),
+                }
+            Ref.update(info);
+        }
+
+        $("#file-field").val("");
+
+    })
+
 
     var $addListing = $('#add-listing-button'),
         $submitListing = $('#submit-listing-button'),

@@ -18,9 +18,9 @@
 	    <!-- left column -->
 	    <div class="col-md-4 col-sm-6 col-xs-12">
 	      <div class="text-center">
-	        <img src="http://s3.amazonaws.com/37assets/svn/765-default-avatar.png" class="avatar img-circle img-thumbnail" alt="avatar">
+	        <img id = "profile-img" src="http://s3.amazonaws.com/37assets/svn/765-default-avatar.png" class="avatar img-circle img-thumbnail" alt="avatar">
 	        <h6>Upload a different photo...</h6>
-	        <input type="file" class="text-center center-block well well-sm">
+	        <input type="file" class="text-center center-block well well-sm" id = "file-field">
 	      </div>
 	    </div>
 	    <!-- edit form column -->
@@ -76,29 +76,29 @@
 	        <div class="form-group">
 	          <label class="col-md-3 control-label">Username:</label>
 	          <div class="col-md-8">
-	            <input class="form-control" placeholder="Username" type="text">
+	            <input class="form-control" placeholder="Username" type="text" id = "username">
 	          </div>
 	        </div>
 	        <div class="form-group">
-	          <label class="col-md-3 control-label">Password:</label>
+	          <label class="col-md-3 control-label">Phone:</label>
 	          <div class="col-md-8">
-	            <input class="form-control" placeholder="Password" type="password">
+	            <input class="form-control" placeholder="phone" type="phone" id = "phone">
 	          </div>
 	        </div>
 	        <div class="form-group">
-	          <label class="col-md-3 control-label">Confirm password:</label>
+	          <label class="col-md-3 control-label">Email:</label>
 	          <div class="col-md-8">
-	            <input class="form-control" placeholder="Confirm-Password" type="password">
+	            <input class="form-control" placeholder="email" type="email" id = "email">
 	          </div>
 	        </div>
 	        <div class="form-group">
-	          <label class="col-md-3 control-label"></label>
-	          <div class="col-md-8">
-	            <input class="btn btn-primary" value="Save Changes" type="button">
-	            <span></span>
-	            <input class="btn btn-default" value="Cancel" type="reset">
-	          </div>
-	        </div>
+          <label class="col-md-3 control-label"></label>
+          <div class="col-md-8">
+            <input class="btn btn-primary" value="Save Changes" type="button" id = "save">
+            <span></span>
+            <input class="btn btn-default" value="Cancel" type="reset" id = "cancel">
+          </div>
+        </div>
 	      <!-- </form> -->
 	    </div>
 		<div class="container" >

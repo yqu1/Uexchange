@@ -1,5 +1,6 @@
 "use strict";
 
+
 function auth(fbname) {
     var firebase = new Firebase("https://"+ fbname + ".firebaseio.com");
     this.firebase = firebase;
@@ -59,7 +60,7 @@ function auth(fbname) {
         });
     };
     // signup with an alias
-    this.signup = function(email,password,password_confirm,alias) {
+    this.signup = function(email,password,password_confirm,alias,phone) {
         this.firebase.createUser({
             email : email,
             password : password
@@ -77,7 +78,8 @@ function auth(fbname) {
 
                 usersRef.child(userData.uid).set({
                     alias : alias,
-                    email : email
+                    email : email,
+                    phone: phone
                 }, function(error) {
                     if (error) {
                         instance.onError(error);
@@ -103,7 +105,7 @@ function auth(fbname) {
                 instance.onLoginFailure();
             }
         }, {
-            remember : "sessionOnly"
+            remember : "default"
         });
     };
     // logout
@@ -115,7 +117,7 @@ function auth(fbname) {
 
 
 $(function() {
-	var ll = new auth("incandescent-inferno-9744");
+	var ll = new auth("resplendent-fire-5646");
 
 	    var $loginButton = $('#login-button'),
         $signupButton = $('#signup-button'),
@@ -132,10 +134,16 @@ $(function() {
         ll.onLogin = function(user) {
         	console.log("in onLogin!");
         	showAlert("Welcome to University Exchange!","success");
+
         	$loginForm.hide();
         	$signupForm.hide();
         	$logoutButton.show();
         	$profile.show();
+            $('#login-email').val("");
+            $("#login-password").val("");
+            $('#signup-email').val("");
+            $("#signup-password").val("");
+
         };
 
         ll.onLogout = function() {
@@ -153,7 +161,7 @@ $(function() {
     	};
 
     	$logoutButton.on('click',function(e) {
-	        
+	        ll.logout();
 	        $logoutButton.hide();
 	        $loginForm.show();
 	        $signupForm.show();
@@ -175,7 +183,7 @@ $(function() {
         	e.stopPropagation();
         	ll.signup($('#signup-email').val(),
             $('#signup-password').val(),$('#signup-password-confirm').val(),
-            $('#signup-alias').val());
+            $('#signup-alias').val(), $('#signup-phone').val());
     	});
 
     	function showAlert(message, type) {
@@ -203,7 +211,7 @@ $(function() {
     	}
 
     	// ensure no user session is active
-    	ll.logout();
+    	// ll.logout();
    	 	// start firebase auth listener only after all callbacks are in place
     	ll.start();
 

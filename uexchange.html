@@ -6,7 +6,7 @@
 <!-- create your css stylesheet called feednd.css -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-    <link href="css/index.css" type="text/css" rel="stylesheet" />
+    <link href="css/uexchange.css" type="text/css" rel="stylesheet" />
 <!-- the following is optional: uncomment if you want to use jQuery UI -->
 <!-- <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" /> -->
 </head>
@@ -122,6 +122,11 @@
 										</div>
 
 										<div class="form-group">
+											 <label class="sr-only" for="phone">Phone</label>
+											 <input type="phone" class="form-control" id="signup-phone" placeholder="phone" required>
+										</div>
+
+										<div class="form-group">
 											 <button type="submit" id = "signup-button" class="btn btn-primary btn-block">Sign up</button>
 										</div>
 								 </form>
@@ -147,6 +152,7 @@
 <script src="js/auth.js"></script>
 <script src="https://cdn.firebase.com/js/client/2.4.0/firebase.js"></script>
 <script src="https://sdk.amazonaws.com/js/aws-sdk-2.2.39.min.js"></script>
+<script src = "js/js.cookie.js"></script>
 
  <!--script src="accordion-slide.js"></script-->
 <!-- the following is optional: uncomment if you want to use jQuery UI -->
