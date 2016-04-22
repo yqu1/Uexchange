@@ -54,3 +54,32 @@ body{
         border-top:0 none;
     }
 }
+
+.center {
+    margin: auto;
+    width: 60%;
+    border: 3px solid darkslategrey;
+    padding: 10px;
+}
+
+#home-listings{
+    background-color: rgba(211, 211, 211, 0.8)
+}
+
+tr > td{
+    padding-bottom: 2em;
+    padding-right: 2em;
+}
+
+tr > th{
+    padding-bottom: 2em;
+    padding-right: 2em;
+}
+
+th{
+    width: 15%;
+}
+
+.item-pic{
+    width: 90%;
+}

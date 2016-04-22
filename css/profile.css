@@ -1,3 +1,19 @@
-#items li {
+li {
     list-style-type: none;
+}
+
+tr > td{
+    padding-bottom: 2em;
+}
+
+tr > th{
+    padding-bottom: 2em;
+}
+
+th{
+    width: 15%;
+}
+
+.item-pic{
+    width: 90%;
 }

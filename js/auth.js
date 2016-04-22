@@ -9,6 +9,8 @@ function auth(fbname) {
     var uid;
     var linksRef = this.firebase.child('livelinks');
     this.linksRef = linksRef;
+    var listingsRef = this.firebase.child('listings');
+    this.listingsRef = listingsRef;
     var instance = this;
 
     //overridable functions
@@ -23,6 +25,7 @@ function auth(fbname) {
           if (authResponse) {
               console.log("user is logged in");
               console.log(authResponse);
+              instance.uid = authResponse.uid;
               usersRef.child(authResponse.uid).once('value', function(snapshot) {
                   instance.user = snapshot.val();
                   instance.onLogin(instance.user);
@@ -31,10 +34,12 @@ function auth(fbname) {
               console.log("user is logged out");
               instance.onLogout();
           }
+
       });
     };
 
-    this.uid = function() {return uid;};
+    //this.uid = function() {return uid;};
+
 
     // submit links for logged in users
     this.submitLink = function(url,name) {
@@ -117,7 +122,7 @@ function auth(fbname) {
 
 
 $(function() {
-	var ll = new auth("resplendent-fire-5646");
+	var ll = new auth("incandescent-inferno-9744");
 
 	    var $loginButton = $('#login-button'),
         $signupButton = $('#signup-button'),
@@ -209,6 +214,37 @@ $(function() {
 	        $alert.slideDown();
 	        setTimeout(function(){$alert.hide()},3000);
     	}
+
+
+        ll.listingsRef.on('value', function(snapshot) {
+            //console.log(snapshot.val());
+
+            $('#listing-items').html("");
+            var name, desc, price, img;
+
+            for(var item in snapshot.val()) {
+                name = snapshot.val()[item]['name'];
+                //console.log(name);
+                price = snapshot.val()[item]['price'];
+                desc = snapshot.val()[item]['description'];
+                if (snapshot.val()[item]['img'] && snapshot.val()[item]['sold']==false) {
+                    img = snapshot.val()[item]['img'];
+                    $('#listing-items').append('<tr><th><img src="' + img + '" class="item-pic"></th><td><h2>' + name + '</h2><h4>Price: $' + price + '</h4><h4>Description: ' + desc + '</h4></td><td><input class="btn btn-default" value="Buy" type="button" id = "buy" data-key="'+ snapshot.val()[item]['key'] +'" data-user-listing-key="'+ snapshot.val()[item]['user-listing-key'] +'"></td></tr><br><br>');
+                } else {
+                    //console.log("here");
+                    //$('#listing-items').append('<tr><td><h2>' + name + '</h2><h4>Price: $' + price + '</h4><h4>Description: ' + desc + '</h4></td><td><input class="btn btn-default" value="Buy" type="button" id = "buy"></td></tr><br><br>');
+                }
+            }
+        });
+
+
+        $("#home-listings").on("click", "#buy", function(e){
+            console.log('here');
+            console.log($(e.target).attr('data-key'));
+
+            ll.listingsRef.child($(e.target).attr('data-key')).update({sold: true});
+            ll.usersRef.child(ll.uid).child('listings').child($(e.target).attr('data-user-listing-key')).update({sold: true});
+        });
 
     	// ensure no user session is active
     	// ll.logout();
