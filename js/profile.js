@@ -213,10 +213,14 @@ $(function() {
             console.log(name);
             price = snapshot.val()[item]['price'];
             desc = snapshot.val()[item]['description'];
-            if (snapshot.val()[item]['img']) {
+            if (snapshot.val()[item]['img'] && snapshot.val()[item]['sold']==false) {
                 img = snapshot.val()[item]['img'];
                 console.log(snapshot.val()[item]['key']);
-                $list.append('<tr><th><img id="list-pic" src="' + img + '" class="item-pic"></th><td><h4>' + name + '</h4><p>Price: $' + price + '</p><p>Description: ' + desc + '</p></td><br><br>');
+                $list.append('<tr><th><img id="list-pic" src="' + img + '" class="item-pic"></th><td><h4>' + name + '</h4><p>Price: $' + price + '</p><p>Description: ' + desc + '</p></td></tr><br><br>');
+            } else if(snapshot.val()[item]['img'] && snapshot.val()[item]['sold']==true) {
+                img = snapshot.val()[item]['img'];
+                console.log(snapshot.val()[item]['key']);
+                $list.append('<tr><th><img id="list-pic" src="' + img + '" class="item-pic"></th><td><h4>' + name + '</h4><p>Price: $' + price + '</p><p>Description: ' + desc + '</p></td><td><h3>Sold!</h3></td></tr><br><br>');
             } else {
                 console.log("here");
                 $list.append('<tr><td><h4>' + name + '</h4><p>Price: $' + price + '</p><p>Description: ' + desc + '</p></td></tr><br><br>');

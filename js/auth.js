@@ -229,7 +229,8 @@ $(function() {
                 desc = snapshot.val()[item]['description'];
                 if (snapshot.val()[item]['img'] && snapshot.val()[item]['sold']==false) {
                     img = snapshot.val()[item]['img'];
-                    $('#listing-items').append('<tr><th><img src="' + img + '" class="item-pic"></th><td><h2>' + name + '</h2><h4>Price: $' + price + '</h4><h4>Description: ' + desc + '</h4></td><td><input class="btn btn-default" value="Buy" type="button" id = "buy" data-key="'+ snapshot.val()[item]['key'] +'" data-user-listing-key="'+ snapshot.val()[item]['user-listing-key'] +'"></td></tr><br><br>');
+                    //console.log(snapshot.val()[item]['uid']);
+                    $('#listing-items').append('<tr><th><img src="' + img + '" class="item-pic"></th><td><h2>' + name + '</h2><h4>Price: $' + price + '</h4><h4>Description: ' + desc + '</h4></td><td><input class="btn btn-default" value="Buy" type="button" id = "buy" data-key="'+ snapshot.val()[item]['key'] +'" data-user-listing-key="'+ snapshot.val()[item]['user-listing-key'] +'" data-userid="'+ snapshot.val()[item]['uid'] +'" ></td></tr><br><br>');
                 } else {
                     //console.log("here");
                     //$('#listing-items').append('<tr><td><h2>' + name + '</h2><h4>Price: $' + price + '</h4><h4>Description: ' + desc + '</h4></td><td><input class="btn btn-default" value="Buy" type="button" id = "buy"></td></tr><br><br>');
@@ -241,9 +242,11 @@ $(function() {
         $("#home-listings").on("click", "#buy", function(e){
             console.log('here');
             console.log($(e.target).attr('data-key'));
-
+            console.log($(e.target).attr('data-userid'));
+            ll.usersRef.child($(e.target).attr('data-userid')).child('listings').child($(e.target).attr('data-user-listing-key')).update({sold: true});
             ll.listingsRef.child($(e.target).attr('data-key')).update({sold: true});
-            ll.usersRef.child(ll.uid).child('listings').child($(e.target).attr('data-user-listing-key')).update({sold: true});
+            //console.log(ll.uid);
+
         });
 
     	// ensure no user session is active
