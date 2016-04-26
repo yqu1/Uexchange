@@ -153,6 +153,7 @@ $(function() {
 
         ll.onLogout = function() {
         	console.log("in onLogout");
+            ll.uid = undefined;
         	$loginForm.show();
         	$signupForm.show();
         	$logoutButton.hide();
@@ -243,8 +244,12 @@ $(function() {
             console.log('here');
             console.log($(e.target).attr('data-key'));
             console.log($(e.target).attr('data-userid'));
-            ll.usersRef.child($(e.target).attr('data-userid')).child('listings').child($(e.target).attr('data-user-listing-key')).update({sold: true});
-            ll.listingsRef.child($(e.target).attr('data-key')).update({sold: true});
+            console.log(ll.uid);
+            if(ll.uid !== undefined){
+                ll.usersRef.child($(e.target).attr('data-userid')).child('listings').child($(e.target).attr('data-user-listing-key')).update({sold: true});
+                ll.listingsRef.child($(e.target).attr('data-key')).update({sold: true});
+            }
+
             //console.log(ll.uid);
 
         });
