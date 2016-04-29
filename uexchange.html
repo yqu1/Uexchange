@@ -47,9 +47,9 @@
         </li> -->
         	<li>
       </ul>
-      <form class="navbar-form navbar-left" role="search">
+      <form id="search-form" class="navbar-form navbar-left" role="search">
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="Search">
+          <input id='search-term' type="text" class="form-control" placeholder="Search">
         </div>
         <button id = "search-submit" type="submit" class="btn btn-default">Submit</button>
       </form>
@@ -144,6 +144,17 @@
   </div><!-- /.container-fluid -->
 </nav>
 
+<div id="buttonHolder" align="right">
+	<button id="view-sold">View Sold Listings</button>
+	<button id="view-available">View Available Listings</button>
+</div>
+<div id="search-info" class="center">
+	<h1 align="center" id="search-header"></h1>
+	<div class="buttonHolder" align="center">
+		<button id="search-clear" class="btn btn-default">Reset Search</button>
+		<button id="include-sold-items" class="btn btn-default">Include Sold Listings</button>
+	</div>
+</div>
 <div id="home-listings" class="center">
 	<table id="listing-items">
 	</table>
@@ -155,6 +166,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 <script src="js/auth.js"></script>
+<script src="js/search.js"></script>
 <script src="https://cdn.firebase.com/js/client/2.4.0/firebase.js"></script>
 <script src="https://sdk.amazonaws.com/js/aws-sdk-2.2.39.min.js"></script>
 

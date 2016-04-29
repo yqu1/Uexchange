@@ -3,6 +3,9 @@
 $(function() {
     var ref = new Firebase("https://incandescent-inferno-9744.firebaseio.com/");
     var authData = ref.getAuth();
+    if(!authData) {
+        window.location.replace('uexchange.html');
+    }
     var username = $('#username');
     var email = $('#email');
     var phone = $('#phone');
@@ -117,6 +120,7 @@ $(function() {
 
         var file = $("#pic-file-field").prop("files")[0];
 
+        console.log($addListingForm.find('#listing_name').val().length);
         if(file) {
             var prop = {
                 Key: file.name,
@@ -197,6 +201,7 @@ $(function() {
         //$userListings.find('#header').remove();
         //$userListings.find('#items').append('<li><div><h4>' + $addListingForm.find('#listing_name').val() + '</h4><img src="'+ data.Location +'"<p>Price: $' + $addListingForm.find('#listing_price').val() + '</p><p>Description: ' + $addListingForm.find('#listing_description').val() +'</p><input class="btn btn-primary" id="buy-listing-button" value="Buy" type="button"><br></div><br></li>');
 
+
         $addListingForm.hide();
         $submitListing.hide();
         $addListing.show();
@@ -228,7 +233,11 @@ $(function() {
         }
     });
 
-
+    $('#profile-return').on("click", function(e){
+        e.stopPropagation();
+        e.preventDefault();
+        window.location.href='uexchange.html'
+    });
 
 
 });
