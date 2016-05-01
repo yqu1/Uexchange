@@ -102,6 +102,9 @@ $(function() {
 
     $addListing.on('click',function(e){
         console.log("add listing");
+        document.getElementById('listing_name').value = "";
+        document.getElementById('listing_price').value = "";
+        document.getElementById('listing_description').value = "";
         $addListingForm.show();
         $submitListing.show();
         $addListing.hide();
@@ -110,6 +113,8 @@ $(function() {
     $addListingForm.on('click', "#submit-listing-button", function(e){
         console.log("submitting listing");
         console.log($addListingForm.find('#listing_name').val());
+        e.preventDefault();
+        e.stopPropagation();
 
 
         var credentials = {accessKeyId
@@ -121,7 +126,8 @@ $(function() {
         var file = $("#pic-file-field").prop("files")[0];
 
         console.log($addListingForm.find('#listing_name').val().length);
-        if(file) {
+        if(file && $addListingForm.find('#listing_name').val() && $addListingForm.find('#listing_price').val() && $addListingForm.find('#listing_description').val()) {
+            console.log("submitted listing WITH A PICTURE");
             var prop = {
                 Key: file.name,
                 ContentType: file.type,
@@ -160,10 +166,17 @@ $(function() {
                 });
                 listing_key = new_listing.key();
 
-            })
+            });
+
+
+            //document.getElementById('listing_name').value = "";
+            //document.getElementById('listing_price').value = "";
+            //document.getElementById('listing_description').value = "";
+
         }
 
-        else {
+        else if($addListingForm.find('#listing_name').val() && $addListingForm.find('#listing_price').val() && $addListingForm.find('#listing_description').val()) {
+            console.log("submitted listing WITH A PICTURE 2");
             var firebase_url = "https://incandescent-inferno-9744.firebaseio.com/project_users/" + uid;
             var Ref = new Firebase(firebase_url);
 
@@ -193,10 +206,24 @@ $(function() {
             });
             listing_key = new_listing.key();
 
+            //document.getElementById('listing_name').value = "";
+            //document.getElementById('listing_price').value = "";
+            //document.getElementById('listing_description').value = "";
+
+
+        }else{
+            console.log("submitted listing WITH A PICTURE 3");
+            console.log('PLEASE FILL IN ALL FIELDS');
+            alert("Please specify listing name, price, and description");
 
         }
 
+
         $("#pic-file-field").val("");
+        //document.getElementById('listing_name').value = "";
+        //document.getElementById('listing_price').value = "";
+        //document.getElementById('listing_description').value = "";
+
 
         //$userListings.find('#header').remove();
         //$userListings.find('#items').append('<li><div><h4>' + $addListingForm.find('#listing_name').val() + '</h4><img src="'+ data.Location +'"<p>Price: $' + $addListingForm.find('#listing_price').val() + '</p><p>Description: ' + $addListingForm.find('#listing_description').val() +'</p><input class="btn btn-primary" id="buy-listing-button" value="Buy" type="button"><br></div><br></li>');
