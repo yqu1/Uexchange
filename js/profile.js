@@ -95,7 +95,10 @@ $(function() {
     var $addListing = $('#add-listing-button'),
         $submitListing = $('#submit-listing-button'),
         $userListings = $('#user_listings'),
-        $addListingForm = $('#add-listing-form');
+        $addListingForm = $('#add-listing-form'),
+        $purchasedHeader = $('#purchased-header'),
+        $userPurchases = $('#user-purchased'),
+        $purchasedTable = $('#purchased-items');
 
     $addListingForm.hide();
     $submitListing.hide();
@@ -259,6 +262,22 @@ $(function() {
             }
         }
     });
+
+
+    ref.child('project_users').child(uid).child('purchased').on('value', function(snapshot) {
+        $userPurchases.find($purchasedHeader).remove();
+        $purchasedTable.html("");
+        var name, desc, price, img;
+
+        for(var item in snapshot.val()) {
+            name = snapshot.val()[item]['name'];
+            price = snapshot.val()[item]['price'];
+            desc = snapshot.val()[item]['description'];
+            img = snapshot.val()[item]['img'];
+            $purchasedTable.append('<tr><th><img id="list-pic" src="' + img + '" class="item-pic"></th><td><h4>' + name + '</h4><p>Price: $' + price + '</p><p>Description: ' + desc + '</p></td></tr><br><br>');
+        }
+    });
+
 
     $('#profile-return').on("click", function(e){
         e.stopPropagation();
