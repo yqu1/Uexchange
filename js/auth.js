@@ -144,6 +144,7 @@ $(function() {
         	$signupForm.hide();
         	$logoutButton.show();
         	$profile.show();
+            $('.buy-button').show();
             $('#login-email').val("");
             $("#login-password").val("");
             $('#signup-email').val("");
@@ -158,6 +159,7 @@ $(function() {
         	$signupForm.show();
         	$logoutButton.hide();
         	$profile.hide();
+            $('.buy-button').hide();
         };
 
         ll.onLoginFailure = function() {
@@ -231,12 +233,18 @@ $(function() {
                 if (snapshot.val()[item]['img'] && snapshot.val()[item]['sold']==false) {
                     img = snapshot.val()[item]['img'];
                     //console.log(snapshot.val()[item]['uid']);
-                    $('#listing-items').append('<tr><th><img src="' + img + '" class="item-pic"></th><td><h2>' + name + '</h2><h4>Price: $' + price + '</h4><h4>Description: ' + desc + '</h4></td><td><input class="btn btn-default" value="Buy" type="button" id = "buy" data-key="'+ snapshot.val()[item]['key'] +'" data-user-listing-key="'+ snapshot.val()[item]['user-listing-key'] +'" data-userid="'+ snapshot.val()[item]['uid'] +'" data-item-name="'+ name +'" data-item-price="'+ price +'" data-item-desc="'+ desc +'" data-item-img="'+ img +'"></td></tr><br><br>');
+                    $('#listing-items').append('<tr><th><img src="' + img + '" class="item-pic"></th><td><h2>' + name + '</h2><h4>Price: $' + price + '</h4><h4>Description: ' + desc + '</h4></td><td><input class="buy-button" class="btn btn-default" value="Buy" type="button" id = "buy" data-key="'+ snapshot.val()[item]['key'] +'" data-user-listing-key="'+ snapshot.val()[item]['user-listing-key'] +'" data-userid="'+ snapshot.val()[item]['uid'] +'" data-item-name="'+ name +'" data-item-price="'+ price +'" data-item-desc="'+ desc +'" data-item-img="'+ img +'"></td></tr><br><br>');
                 } else {
                     //console.log("here");
                     //$('#listing-items').append('<tr><td><h2>' + name + '</h2><h4>Price: $' + price + '</h4><h4>Description: ' + desc + '</h4></td><td><input class="btn btn-default" value="Buy" type="button" id = "buy"></td></tr><br><br>');
                 }
             }
+
+            if(!ll.uid){
+                $('.buy-button').hide();
+            }
+            //$('.buy-button').hide();
+
         });
 
 
