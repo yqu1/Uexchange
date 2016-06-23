@@ -55,13 +55,13 @@ body{
     }
 }
 
-.center {
+/*.center {
     margin: auto;
     width: 60%;
     border: 3px solid darkslategrey;
     padding: 10px;
 }
-
+*/
 #home-listings{
     background-color: rgba(211, 211, 211, 0.8)
 }
